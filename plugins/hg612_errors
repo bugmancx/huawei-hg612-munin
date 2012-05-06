@@ -1,0 +1,82 @@
+#!/bin/sh
+# -*- sh -*-
+
+statsfile="/etc/munin/huawei/output.txt"
+
+: << =cut
+
+=head1 NAME
+
+Line Stats - Plugin to get Huawei HG612 line stats
+
+=head1 NOTES
+
+Fetches Errors
+
+=head1 AUTHOR
+
+Adam Smith
+
+=head1 LICENSE
+
+GPL
+
+=head1 MAGIC MARKERS
+
+ #%# family=auto
+ #%# capabilities=autoconf
+
+=cut
+
+if [ "$1" = "autoconf" ]; then
+	echo yes 
+	exit 0
+fi
+
+if [ "$1" = "config" ]; then
+
+	echo "graph_title Errors"
+	echo "graph_args --base 1000"
+	echo "graph_vlabel errors down (-) / up (+) per ${graph_period}"
+	echo "graph_category hg612"
+	echo "graph_scale no"
+
+
+	echo "downcrc.label CRC errors"
+	echo "downcrc.type DERIVE"
+	echo "downcrc.graph no"
+	echo "upcrc.label CRC errors"
+	echo "upcrc.type DERIVE"
+	echo "upcrc.negative downcrc"
+	echo "upcrc.info Errors received"
+
+	echo "downfec.label FEC errors"
+	echo "downfec.type DERIVE"
+	echo "downfec.graph no"
+	echo "upfec.label FEC errors"
+	echo "upfec.type DERIVE"
+	echo "upfec.negative downfec"
+	echo "upfec.info Errors received"
+
+	echo "downhec.label HEC errors"
+	echo "downhec.type DERIVE"
+	echo "downhec.graph no"
+	echo "uphec.label HEC errors"
+	echo "uphec.type DERIVE"
+	echo "uphec.negative downhec"
+	echo "uphec.info Errors received"
+
+        exit 0
+fi;
+
+	echo -n "downcrc.value " ; grep CRC $statsfile | tail -n 1 | awk '{ print $2 }'
+	echo -n "upcrc.value " ; grep CRC $statsfile | tail -n 1 | awk '{ print $3 }'
+ 
+	echo -n "downfec.value " ; grep FEC $statsfile | tail -n 1 | awk '{ print $2 }'
+	echo -n "upfec.value " ; grep FEC $statsfile | tail -n 1 | awk '{ print $3 }'
+ 
+	echo -n "downhec.value " ; grep HEC $statsfile | tail -n 1 | awk '{ print $2 }'
+	echo -n "uphec.value " ; grep HEC $statsfile | tail -n 1 | awk '{ print $3 }'
+ 
+	exit 0
+fi

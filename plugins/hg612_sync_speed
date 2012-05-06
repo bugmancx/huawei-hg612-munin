@@ -1,0 +1,72 @@
+#!/bin/sh
+# -*- sh -*-
+
+statsfile="/etc/munin/huawei/output.txt"
+
+: << =cut
+
+=head1 NAME
+
+Line Stats - Plugin to get Huawei HG612 line stats
+
+=head1 NOTES
+
+Fetches current sync
+
+=head1 AUTHOR
+
+Adam Smith
+
+=head1 LICENSE
+
+GPL
+
+=head1 MAGIC MARKERS
+
+ #%# family=auto
+ #%# capabilities=autoconf
+
+=cut
+
+if [ "$1" = "autoconf" ]; then
+	echo yes 
+	exit 0
+fi
+
+if [ "$1" = "config" ]; then
+
+        echo "graph_title Attainable vs Current Sync Speed"
+        echo 'graph_args --base 1000'
+        echo 'graph_vlabel Sync Rate Actual (-) Attainable (+)'
+        echo 'graph_category hg612'
+        echo 'graph_scale yes'
+        echo 'downstream.label Downstream'
+        echo 'downstream.draw LINE'
+        echo 'downstream.graph no'
+        echo 'upstream.label Upstream'
+        echo 'upstream.draw LINE'
+        echo 'upstream.graph no'
+        echo 'maxdownstream.label Downstream'
+        echo 'maxdownstream.draw AREA'
+        echo 'maxdownstream.negative downstream'
+        echo 'maxupstream.label Upstream'
+        echo 'maxupstream.draw AREA'
+        echo 'maxupstream.negative upstream'
+        exit 0
+fi;
+
+echo -n "maxdownstream.value "
+echo $(grep Upstream $statsfile  | grep Max  | head -n 1 | awk '{ print $10 }')000
+
+echo -n "downstream.value "
+echo $(grep Upstream $statsfile  | grep Path  | head -n 1 | awk '{ print $11 }')000
+
+echo -n "maxupstream.value "
+echo $(grep Upstream $statsfile  | grep Max  | head -n 1 | awk '{ print $5 }')000
+
+echo -n "upstream.value "
+echo $(grep Upstream $statsfile  | grep Path  | head -n 1 | awk '{ print $6 }')000
+
+
+	exit 0
+fi

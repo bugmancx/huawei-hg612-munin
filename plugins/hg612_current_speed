@@ -1,0 +1,58 @@
+#!/bin/sh
+# -*- sh -*-
+
+statsfile="/etc/munin/huawei/output.txt"
+
+: << =cut
+
+=head1 NAME
+
+Line Stats - Plugin to get Huawei HG612 line stats
+
+=head1 NOTES
+
+Fetches attainable line speed vs actual line speed
+
+=head1 AUTHOR
+
+Adam Smith
+
+=head1 LICENSE
+
+GPL
+
+=head1 MAGIC MARKERS
+
+ #%# family=auto
+ #%# capabilities=autoconf
+
+=cut
+
+if [ "$1" = "autoconf" ]; then
+	echo yes 
+	exit 0
+fi
+
+if [ "$1" = "config" ]; then
+
+        echo "graph_title Sync Speed"
+        echo 'graph_args --base 1000'
+        echo 'graph_vlabel Speed (bps)'
+        echo 'graph_category hg612'
+        echo 'graph_scale yes'
+        echo 'graph_order downstream upstream'
+        echo 'downstream.label Downstream'
+        echo 'downstream.draw AREA'
+        echo 'upstream.label Upstream'
+        echo 'upstream.draw AREA'
+        exit 0
+fi;
+
+echo -n "downstream.value "
+echo $(grep Upstream $statsfile  | grep Path  | head -n 1 | awk '{ print $11 }')000
+
+echo -n "upstream.value "
+echo $(grep Upstream $statsfile  | grep Path  | head -n 1 | awk '{ print $6 }')000
+
+	exit 0
+fi

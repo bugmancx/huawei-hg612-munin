@@ -1,0 +1,28 @@
+
+spawn nc 192.168.1.1 23
+expect "Login"
+send "admin\r"
+
+expect "Password:"
+send "admin\r"
+
+expect "ATP>"
+send "sh\r"
+
+expect "#"
+send "xdslcmd info --show\r"
+
+expect "#"
+send "xdslcmd info --pbParams\r"
+
+expect "#"
+send "xdslcmd info --stats\r"
+
+expect "#"
+send "ifconfig ptm1\r"
+
+expect "#"
+send "exit\r"
+
+expect "ATP>"
+send "exit\r\r"

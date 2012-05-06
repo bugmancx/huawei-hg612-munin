@@ -1,0 +1,101 @@
+#!/bin/sh
+# -*- sh -*-
+
+statsfile="/etc/munin/huawei/output.txt"
+
+: << =cut
+
+=head1 NAME
+
+Line Stats - Plugin to get Huawei HG612 line stats
+
+=head1 NOTES
+
+Fetches Link Uptime
+
+=head1 AUTHOR
+
+Adam Smith
+
+=head1 LICENSE
+
+GPL
+
+=head1 MAGIC MARKERS
+
+ #%# family=auto
+ #%# capabilities=autoconf
+
+=cut
+
+if [ "$1" = "autoconf" ]; then
+	echo yes 
+	exit 0
+fi
+
+if [ "$1" = "config" ]; then
+
+        echo "graph_title ptm1 Uptime in days"
+        echo 'graph_args --base 1000 -l 0'
+        echo 'graph_vlabel VDSL Uptime in days'
+        echo 'graph_category hg612'
+        echo 'graph_scale no'
+        echo 'uptime.label Uptime in days'
+        echo 'uptime.draw AREA'
+        exit 0
+fi;
+
+
+echo -n "uptime.value "
+
+# Value is presented in human-readbale format so we will have to do some maths to recalculate value to seconds
+# WARNING - This code is awful!
+
+# Get the uptime and split up the values
+
+uptimefile=/tmp/uptimefile
+grep "Since Link time" $statsfile | sed -e 's/Since\ Link\ time\ =\ //g' -e 's/days/days\n/g' -e 's/hours/hours\n/g' -e 's/min/min\n/g' > $uptimefile
+
+# Work with each value, but sometimes there may be no value to work with due to sync drop etc.
+
+#DAYS
+
+days="$(grep days $uptimefile | awk '{ print $1 }')"
+		if [ -z "$days" ] ; then
+			days="0"
+		fi
+days_sec=$(echo "$days * 86400" | bc);
+
+#HOURS
+
+hours="$(grep hours $uptimefile | awk '{ print $1 }')"
+                if [ -z "$hours" ] ; then
+                        hours="0"
+                fi
+hours_sec=$(echo "$hours * 3600" | bc);
+
+
+#MIN
+
+min="$(grep min $uptimefile | awk '{ print $1 }')"
+                if [ -z "$min" ] ; then
+                        min="0"
+                fi
+min_sec=$(echo "$min * 60" | bc);
+
+
+#SEC
+
+sec="$(grep sec $uptimefile | awk '{ print $1 }')"
+                if [ -z "$sec" ] ; then
+                        sec="0"
+                fi
+
+# Do the maths and return this to the output as decimal, in days
+
+echo $(echo "$days_sec + $hours_sec + $min_sec + $sec" | bc) | awk '{ print $1/86400 }'
+
+rm $uptimefile
+
+	exit 0
+fi

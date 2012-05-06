@@ -1,0 +1,65 @@
+#!/bin/sh
+# -*- sh -*-
+
+statsfile="/etc/munin/huawei/output.txt"
+
+: << =cut
+
+=head1 NAME
+
+Line Stats - Plugin to get Huawei HG612 line stats
+
+=head1 NOTES
+
+Fetches Line Attenuation
+
+=head1 AUTHOR
+
+Adam Smith
+
+=head1 LICENSE
+
+GPL
+
+=head1 MAGIC MARKERS
+
+ #%# family=auto
+ #%# capabilities=autoconf
+
+=cut
+
+if [ "$1" = "autoconf" ]; then
+	echo yes 
+	exit 0
+fi
+
+
+
+if [ "$1" = "config" ]; then
+
+        echo "graph_title Line Attenuation (dB)"
+        echo 'graph_args --base 1000'
+        echo 'graph_vlabel Line Attenuation (dB)'
+        echo 'graph_category hg612'
+        echo 'graph_scale no'
+
+# There are seven VDSL bands to monitor, so we want to get the band names
+
+	grep "VDSL Band Status" $statsfile  | awk '{ print $4".label "$4"\n" $5".label "$5"\n" $6".label "$6"\n" $7".label "$7"\n" $8".label "$8"\n" $9".label "$9"\n" $10".label "$10}'
+
+	exit 0
+
+fi;
+
+# Fetch the values and display
+
+for f in 4 5 6 7 8 9 10
+	do
+
+	echo -n $(grep "VDSL Band Status" $statsfile | awk '{ print $'$f' ".value " }')
+	echo " $(grep "Line Attenuation(dB)" $statsfile | sed -e 's/(/\ (/g' | awk '{ print $'$f' }')"
+
+done
+	exit 0
+
+fi
