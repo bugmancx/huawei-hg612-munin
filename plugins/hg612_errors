@@ -37,7 +37,7 @@ if [ "$1" = "config" ]; then
 
 	echo "graph_title Errors"
 	echo "graph_args --base 1000"
-	echo "graph_vlabel errors down (-) / up (+) per ${graph_period}"
+	echo 'graph_vlabel errors down (-) / up (+) per ${graph_period}'
 	echo "graph_category hg612"
 	echo "graph_scale no"
 
