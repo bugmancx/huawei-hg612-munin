@@ -1,0 +1,58 @@
+#!/bin/sh
+# -*- sh -*-
+
+statsfile="/etc/munin/huawei/output.txt"
+
+: << =cut
+
+=head1 NAME
+
+Line Stats - Plugin to get Huawei HG612 line stats
+
+=head1 NOTES
+
+Fetches current SNR
+
+=head1 AUTHOR
+
+Adam Smith
+
+=head1 LICENSE
+
+GPL
+
+=head1 MAGIC MARKERS
+
+ #%# family=auto
+ #%# capabilities=autoconf
+
+=cut
+
+if [ "$1" = "autoconf" ]; then
+	echo yes 
+	exit 0
+fi
+
+if [ "$1" = "config" ]; then
+
+        echo 'graph_title Interleave Depth'
+        echo 'graph_args --base 1000'
+        echo 'graph_vlabel Interleave Depth'
+        echo 'graph_category hg612'
+        echo 'graph_scale no'
+        echo 'graph_order upstream downstream'
+        echo 'downstream.label Downstream'
+        echo 'downstream.draw LINE'
+        echo 'upstream.label Upstream'
+        echo 'upstream.draw LINE'
+        exit 0
+fi;
+
+
+echo -n "upstream.value "
+echo $(grep ^D: $statsfile  | head -n 1 | awk '{ print $3 }')
+echo -n "downstream.value "
+echo $(grep ^D: $statsfile  | head -n 1 | awk '{ print $2 }')
+
+	exit 0
+fi
