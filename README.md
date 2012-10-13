@@ -27,9 +27,9 @@ to use a different directory you may need to modify the scripts to suit.
 	cd /etc/munin
 	tar zxvf huawei-hg612-munin-1.0.tgz
 
-4. A cron job must be set up to run every 15 minutes and the user running the
+4. A cron job must be set up to run every 5 minutes and the user running the
 plugin must be able to write to /etc/munin/huawei/output.txt:
-*/5 * * * * /etc/munin/huawei/getstats.sh
+	*/5 * * * * /etc/munin/huawei/getstats.sh
 
 5. If you wish to enable any of the plugins, create a symlink for each one in
 the munin plugins directory.  Or, copy and paste the following:
