@@ -1,2 +1,5 @@
 #!/bin/sh
-expect /etc/munin/huawei/huawei.expect  | tee | tr -d "\015"  > /etc/munin/huawei/output.txt
+
+statsfile=${statsfile:-/var/lib/munin/plugin-state/huawei-hg612-munin-output.txt}
+
+expect `dirname $0`/huawei.expect  | tee | tr -d "\015"  > $statsfile
