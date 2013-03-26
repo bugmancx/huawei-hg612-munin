@@ -28,22 +28,14 @@ to use a different directory you may need to modify the scripts to suit.
 	tar zxvf huawei-hg612-munin-1.0.tgz
 
 4. A cron job must be set up to run every 5 minutes and the user running the
-plugin must be able to write to /etc/munin/huawei/output.txt:
-	*/5 * * * * /etc/munin/huawei/getstats.sh
+plugin must be able to write to `/var/lib/munin/plugin-state/huawei-hg612-munin-output.txt`.
+
+	cp /etc/munin/huawei/crontab /etc/cron.d/huawei-hg612-munin
 
 5. If you wish to enable any of the plugins, create a symlink for each one in
 the munin plugins directory.  Or, copy and paste the following:
 
-	cd /etc/munin/plugins
-	ln -s /etc/munin/huawei/plugins/hg612_attenuation
-	ln -s /etc/munin/huawei/plugins/hg612_current_speed
-	ln -s /etc/munin/huawei/plugins/hg612_errors
-	ln -s /etc/munin/huawei/plugins/hg612_max_speed
-	ln -s /etc/munin/huawei/plugins/hg612_ptm1
-	ln -s /etc/munin/huawei/plugins/hg612_ptm1_uptime
-	ln -s /etc/munin/huawei/plugins/hg612_pwr
-	ln -s /etc/munin/huawei/plugins/hg612_snr
-	ln -s /etc/munin/huawei/plugins/hg612_sync_speed
+	ln -s /etc/munin/huawei/plugins/hg612_* /etc/munin/plugins
 
 6. The huawei.expect script is configured to connect to 192.168.1.1 and use 
 the default username and password.  If this isn't what you want, simply modify
