@@ -59,13 +59,13 @@ echo -n "maxdownstream.value "
 echo $(grep Upstream $statsfile  | grep Max  | head -n 1 | awk '{ print $10 }')000
 
 echo -n "downstream.value "
-echo $(grep Upstream $statsfile  | grep Path  | head -n 1 | awk '{ print $11 }')000
+echo $(grep Upstream $statsfile  | grep 'Path\|Bearer'  | head -n 1 | awk '{ print $11 }')000
 
 echo -n "maxupstream.value "
 echo $(grep Upstream $statsfile  | grep Max  | head -n 1 | awk '{ print $5 }')000
 
 echo -n "upstream.value "
-echo $(grep Upstream $statsfile  | grep Path  | head -n 1 | awk '{ print $6 }')000
+echo $(grep Upstream $statsfile  | grep 'Path\|Bearer'  | head -n 1 | awk '{ print $6 }')000
 
 
 	exit 0
