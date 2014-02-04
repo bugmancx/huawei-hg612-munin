@@ -35,6 +35,7 @@ fi
 
 if [ "$1" = "config" ]; then
 
+        echo "host_name hg612"
         echo "graph_title ptm1 Uptime in days"
         echo 'graph_args --base 1000 -l 0'
         echo 'graph_vlabel VDSL Uptime in days'

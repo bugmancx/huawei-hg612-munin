@@ -37,6 +37,7 @@ fi
 
 if [ "$1" = "config" ]; then
 
+		echo "host_name hg612"
         echo "graph_title Line Attenuation (dB)"
         echo 'graph_args --base 1000'
         echo 'graph_vlabel Line Attenuation (dB)'

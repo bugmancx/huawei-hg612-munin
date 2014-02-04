@@ -35,6 +35,7 @@ fi
 
 if [ "$1" = "config" ]; then
 
+        echo "host_name hg612"
         echo "graph_title Attainable vs Current Sync Speed"
         echo 'graph_args --base 1000'
         echo 'graph_vlabel Sync Rate Actual (-) Attainable (+)'
