@@ -1,28 +1,32 @@
 
 spawn nc 192.168.1.1 23
+#spawn telnet 192.168.1.1
 expect "Login"
-send "admin\r"
+send "admin\n"
 
 expect "Password:"
-send "admin\r"
+send "admin\n"
 
 expect "ATP>"
-send "sh\r"
+send "sh\n"
 
 expect "#"
-send "xdslcmd info --show\r"
+send "xdslcmd info --show\n"
 
 expect "#"
-send "xdslcmd info --pbParams\r"
+send "xdslcmd info --pbParams\n"
 
 expect "#"
-send "xdslcmd info --stats\r"
+send "xdslcmd info --stats\n"
 
 expect "#"
-send "ifconfig ptm1\r"
+# Fibre
+#send "ifconfig ptm1\n"
+# ADSL
+send "ifconfig atm1\n"
 
 expect "#"
-send "exit\r"
+send "exit\n"
 
 expect "ATP>"
-send "exit\r\r"
+send "exit\n\n"
