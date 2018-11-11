@@ -1,5 +1,6 @@
+set modem_ip [lindex $argv 0]
 
-spawn nc 192.168.1.1 23
+spawn nc $modem_ip 23
 expect "Login"
 send "admin\r"
 
