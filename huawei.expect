@@ -1,6 +1,5 @@
 
 spawn nc 192.168.1.1 23
-#spawn telnet 192.168.1.1
 expect "Login"
 send "admin\n"
 
