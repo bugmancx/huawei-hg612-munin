@@ -1,43 +1,36 @@
-This is a collection of munin plugins for monitoring various details of the Huawei
-HG612 device.  The HG612 is installed by OpenReach for certain types of DSL connections.
-It is normally installed in a locked-down state but can be unlocked to provide
-additional information and configuration -- just search "HG612 Hacking" and you
-will find all of the information you need.
+## HG612 plugins for Munin
 
-These scripts are provided for the free use of anyone who wishes to use them.
-They were written by me for my own personal use, and as such may or may not need
-to be modified to suit your purposes.
+This is a collection of munin plugins for monitoring various details of the Huawei HG612 device.  The HG612 is installed by OpenReach for certain types of DSL connections (mostly FTTC "Infinity" and LLU installations).
 
-My code is not perfect but does the job for me, and may need to be modified for
-you.  Improvements are welcome.
+Most Openreach installations are in a locked-down state but can be unlocked to provide additional information and configuration -- just search "HG612 Hacking" and you will find all of the information you need.
 
-I've provided some instructions to add these into munin -- they will only show
-up as a new graph section (hg612) for an existing host (if you require them to show up
-as a separate host in munin, please reconfigure to suit.)
 
-HOW TO USE:
+### Installation
 
-1. This code was written to be run with Munin on a Linux host.  It requires an
-unlocked HG612 and for the "expect" scripting language to be installed.
+- Install ```netcat``` and ```expect```
+- Download and unpack the repository into ```/etc/munin/huawei-hg612-munin/```
+- Install the crontab, either manually in the ```munin``` user for your system, or ```cp crontab /etc/cron.d/huawei-hg612-munin```
+- Symlink the required plugins into ```/etc/munin/plugins``` using ```ln -s /etc/munin/huawei-hg612-munin/plugins/hg612_* /etc/munin/plugins/```
+- Set  your modem's IP by renaming ```config.sample``` as ```config```, then editi it.
+- Add an host entry for ```hg612``` in your ```munin.conf``` file, ie:  
 
-2. This script was configured to be run from /etc/munin/huawei and if you need
-to use a different directory you may need to modify the scripts to suit.
+    ```
+    [hg612]
+    	address	127.0.0.1
+    ```
+     _(replace 127.0.0.1 with the ip address of the munin-node hosting this hg612 plugins)_
+- Restart your munin-node , ie: ```/etc/init.d/munin-node restart```
 
-3. To extract:
-	cd /etc/munin
-	tar zxvf huawei-hg612-munin-1.0.tgz
 
-4. A cron job must be set up to run every 5 minutes and the user running the
-plugin must be able to write to `/var/lib/munin/plugin-state/huawei-hg612-munin-output.txt`.
+### License
 
-	cp /etc/munin/huawei/crontab /etc/cron.d/huawei-hg612-munin
+These files are distributed under the GPL v3, please see the included ```LICENSE``` file for further details. 
 
-5. If you wish to enable any of the plugins, create a symlink for each one in
-the munin plugins directory.  Or, copy and paste the following:
 
-	ln -s /etc/munin/huawei/plugins/hg612_* /etc/munin/plugins
+### Authors
 
-6. The huawei.expect script is configured to connect to 192.168.1.1 and use 
-the default username and password.  If this isn't what you want, simply modify
-the expect script.
-
+- [bugmancx](https://github.com/bugmancx) - Original Author
+- [Chris Williams](https://github.com/bingos)
+- [Andrew Williams](https://github.com/nikdoof)
+- [Chris Wilson](https://github.com/qris)
+- [Soif](https://github.com/soif)
