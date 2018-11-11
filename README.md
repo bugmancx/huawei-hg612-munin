@@ -11,7 +11,7 @@ Most Openreach installations are in a locked-down state but can be unlocked to p
 - Download and unpack the repository into ```/etc/munin/huawei```
 - Install the crontab, either manually in the ```munin``` user for your system, or ```cp crontab /etc/cron.d/huawei-hg612-munin```
 - Symlink the required plugins into ```/etc/munin/plugins``` using ```ln -s /etc/munin/huawei-hg612-munin/plugins/hg612_* /etc/munin/plugins/```
-- Modify ```/etc/munin/huawei-hg612-munin/getstats.sh``` for your modem's IP, username, and password.
+- Modify ```/etc/munin/huawei-hg612-munin/getstats.sh``` for your modem's IP
 - Add an host entry for ```hg612``` to your ```munin.conf``` file
 
 ### License
