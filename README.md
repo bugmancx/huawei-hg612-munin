@@ -8,15 +8,24 @@ Most Openreach installations are in a locked-down state but can be unlocked to p
 ### Installation
 
 - Install ```netcat``` and ```expect```
-- Download and unpack the repository into ```/etc/munin/huawei```
+- Download and unpack the repository into ```/etc/munin/huawei-hg612-munin/```
 - Install the crontab, either manually in the ```munin``` user for your system, or ```cp crontab /etc/cron.d/huawei-hg612-munin```
 - Symlink the required plugins into ```/etc/munin/plugins``` using ```ln -s /etc/munin/huawei-hg612-munin/plugins/hg612_* /etc/munin/plugins/```
-- Modify ```/etc/munin/huawei-hg612-munin/getstats.sh``` for your modem's IP
-- Add an host entry for ```hg612``` to your ```munin.conf``` file
+- Set  your modem's IP by renaming ```config.sample``` as ```config```, then editi it.
+- Add an host entry for ```hg612``` in your ```munin.conf``` file, ie:  
+
+    ```
+    [hg612]
+    	address	127.0.0.1
+    ```
+     _(replace 127.0.0.1 with the ip address of the munin-node hosting this hg612 plugins)_
+- Restart your munin-node , ie: ```/etc/init.d/munin-node restart```
+
 
 ### License
 
 These files are distributed under the GPL v3, please see the included ```LICENSE``` file for further details. 
+
 
 ### Authors
 
