@@ -37,10 +37,10 @@ fi
 if [ "$1" = "config" ]; then
 
     echo "host_name $host_name"
+	echo "graph_category network"
 	echo "graph_title atm1 traffic"
 	echo "graph_args --base 1000"
 	echo 'graph_vlabel bytes per ${graph_period}'
-	echo "graph_category hg612"
 	echo "down.label received"
 	echo "down.type DERIVE"
 #	echo "down.graph no"
