@@ -51,10 +51,10 @@ if [ "$1" = "config" ]; then
 fi;
 
 echo -n "downstream.value "
-echo $(grep Upstream $statsfile  | grep "Bearer:" | head -n 1 | awk '{ print $11 }')000
+echo $(grep Upstream $statsfile  | grep -E "(Path|Channel|Bearer):" | head -n 1 | awk '{ print $11 }')000
 
 echo -n "upstream.value "
-echo $(grep Upstream $statsfile  | grep "Bearer:" | head -n 1 | awk '{ print $6 }')000
+echo $(grep Upstream $statsfile  | grep -E "(Path|Channel|Bearer):" | head -n 1 | awk '{ print $6 }')000
 
 	exit 0
 fi
