@@ -19,10 +19,10 @@ expect "#"
 send "xdslcmd info --stats\n"
 
 expect "#"
-# Fibre
-#send "ifconfig ptm1\n"
-# ADSL
-send "ifconfig atm1\n"
+# ptm1 (Fiber?)
+send "ifconfig ptm1\n"
+# atm1 (DSL?)
+#send "ifconfig atm1\n"
 
 expect "#"
 send "exit\n"
