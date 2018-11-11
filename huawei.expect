@@ -1,5 +1,5 @@
 
-spawn nc 192.168.1.1 23
+spawn nc $modem_ip 23
 expect "Login"
 send "admin\r"
 

@@ -1,0 +1,6 @@
+# renmae this file as "config"
+# then change the following variables to set your own values
+
+statsfile=/var/lib/munin/huawei-hg612-munin-output.txt
+
+modem_ip="192.168.1.1"
