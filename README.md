@@ -24,3 +24,4 @@ These files are distributed under the GPL v3, please see the included ```LICENSE
 - [Chris Williams](https://github.com/bingos)
 - [Andrew Williams](https://github.com/nikdoof)
 - [Chris Wilson](https://github.com/qris)
+- [Soif](https://github.com/soif)
