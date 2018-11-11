@@ -1,4 +1,4 @@
-# renmae this file as "config"
+# rename this file as "config"
 # then change the following variables to set your own values
 
 statsfile=/var/lib/munin/plugin-state/huawei-hg612-munin-output.txt
