@@ -53,7 +53,7 @@ echo -n "uptime.value "
 
 # Get the uptime and split up the values
 
-uptimefile=/tmp/uptimefile
+uptimefile=/tmp/huawei_hg612_munin_uptime_atm1
 grep "Since Link time" $statsfile | sed -e 's/Since\ Link\ time\ =\ //g' -e 's/days/days\n/g' -e 's/hours/hours\n/g' -e 's/min/min\n/g' > $uptimefile
 
 # Work with each value, but sometimes there may be no value to work with due to sync drop etc.
