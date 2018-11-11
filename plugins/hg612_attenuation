@@ -2,6 +2,7 @@
 # -*- sh -*-
 
 statsfile=${statsfile:-/var/lib/munin/plugin-state/huawei-hg612-munin-output.txt}
+host_name=${host_name:-"hg612"}
 
 : << =cut
 
@@ -37,10 +38,11 @@ fi
 
 if [ "$1" = "config" ]; then
 
+        echo "host_name $host_name"
+        echo 'graph_category line'
         echo "graph_title Line Attenuation (dB)"
         echo 'graph_args --base 1000'
         echo 'graph_vlabel Line Attenuation (dB)'
-        echo 'graph_category hg612'
         echo 'graph_scale no'
 
 # There are seven VDSL bands to monitor, so we want to get the band names
