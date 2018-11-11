@@ -1,1 +1,1 @@
-*/5 * * * *	munin	/etc/munin/plugins/huawei-hg612-munin/getstats.sh
+*/5 * * * *	munin	/etc/munin/huawei-hg612-munin/getstats.sh
